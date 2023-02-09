@@ -9,10 +9,10 @@ module.exports = async function (req, res) {
   const maxFiles = 250;
   const maxSize = 1024 * 1024 * 1024 * 10;
 
-  if (!auth) {
-    res.status(401).send("Unauthorized");
-    return;
-  }
+  //   if (!auth) {
+  //     res.status(401).send("Unauthorized");
+  //     return;
+  //   }
 
   if (!file) {
     res.status(400).send("Bad Request. Missing File ID");
@@ -24,7 +24,7 @@ module.exports = async function (req, res) {
   try {
     const response = await axios.get(url, {
       headers: {
-        Authorization: auth,
+        ...(auth && { Authorization: auth }),
       },
     });
 

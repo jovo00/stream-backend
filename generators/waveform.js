@@ -7,11 +7,6 @@ module.exports = async function (req, res) {
   const file = req.query.file;
   const maxSize = 1024 * 1024 * 100;
 
-  if (!auth) {
-    res.status(401).send("Unauthorized");
-    return;
-  }
-
   if (!file) {
     res.status(400).send("Bad Request. Missing File ID");
     return;
@@ -22,7 +17,7 @@ module.exports = async function (req, res) {
   try {
     const response = await axios.get(url, {
       headers: {
-        Authorization: auth,
+        ...(auth && { Authorization: auth }),
       },
     });
 
